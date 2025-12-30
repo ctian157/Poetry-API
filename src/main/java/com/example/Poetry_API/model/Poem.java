@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Poem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //JPA will handle id generation based on DB
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //JPA will handle id generation based on DB auto-increment scheme
     private int id;
 
     @NotBlank
@@ -24,7 +24,7 @@ public class Poem {
     private String content;
     //nullable
     private String translation;
-    @NotBlank
+    //Will always be set to some value in backend (either passed in from query or set to 'en' in Service)
     private String language;
 
     //constructor allowing other classes to create and use Poem objects
@@ -32,7 +32,7 @@ public class Poem {
         this.title = title;
         this.poet = poet;
         this.poet_en = poet_en;
-        this.language = dynasty;
+        this.dynasty = dynasty;
         this.content = content;
         this.language = language;
         // translation default to null
