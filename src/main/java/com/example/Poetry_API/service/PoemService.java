@@ -29,18 +29,21 @@ public class PoemService {
     //method
     public Poem addPoem (Poem poem) {
 
+        //if for some reason URL does not pass in a language, set default
+        if (poem.getLanguage() == null || poem.getLanguage().isBlank()) {
+            poem.setLanguage("en");
+        }
+
         //insertPoem already returns an int
-        return dataAccessService.insertPoem(
-                poem.getTitle(),
-                poem.getPoet(),
-                poem.getPoetEn(),
-                poem.getDynasty(),
-                poem.getContent()
-        );
+        return dataAccessService.insertPoem(poem);
     }
 
     public List<Poem> getAllPoems (){
         return dataAccessService.selectAllPoems();
+    }
+
+    public List<Poem> getPoemByLanguage(String language) {
+        return dataAccessService.getPoemByLanguage(language);
     }
 
     public Optional<Poem> getPoemById(int id) {

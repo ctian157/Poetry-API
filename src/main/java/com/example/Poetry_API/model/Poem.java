@@ -18,22 +18,24 @@ public class Poem {
     private String title;
     @NotBlank
     private String poet;
-    @NotBlank
     private String poet_en;
     private String dynasty;
     @NotBlank
     private String content;
     //nullable
     private String translation;
+    @NotBlank
+    private String language;
 
     //constructor allowing other classes to create and use Poem objects
-    public Poem (String title, String poet, String poet_en, String dynasty, String content){
+    public Poem (String title, String poet, String poet_en, String dynasty, String content, String language){
         this.title = title;
         this.poet = poet;
         this.poet_en = poet_en;
-        this.dynasty = dynasty;
+        this.language = dynasty;
         this.content = content;
-        // translation defaults to null
+        this.language = language;
+        // translation default to null
     }
 
     public Poem() {
@@ -96,5 +98,9 @@ public class Poem {
     public String getTranslation() { return translation; }
 
     public void setTranslation(String translation) { this.translation = translation; }
+
+    public String getLanguage() { return language; }
+
+    public void setLanguage(String language) { this.language = language; }
 
 }

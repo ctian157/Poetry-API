@@ -28,11 +28,16 @@ public class PoemController {
 
     //methods
     @PostMapping //maps HTTP 'POST' to following method
-    public ResponseEntity<?> addPoem(@Valid @RequestBody Poem poem) {
+    public ResponseEntity<?> addPoem(@Valid @RequestBody Poem poem, @RequestParam(required = false) String language) {
+
+        //Override language if passed via URL (most likely case)
+        if (language != null && !language.isBlank()) {
+            poem.setLanguage(language);
+        }
+
         Poem addedPoem = poemService.addPoem(poem); //returns the ID of inserted poem
 
         //Spring handles the mandatory non-null field validations
-
         //handle duplicate
         if (addedPoem == null) {
             return ResponseEntity.status(409).body("Attempting to add duplicate poem!");
@@ -42,9 +47,14 @@ public class PoemController {
     }
 
 
+    //Will get all poems unless otherwise specified
     @GetMapping
-    public List<Poem> getAllPoems () {
-        return poemService.getAllPoems();
+    public List<Poem> getPoems (@RequestParam(required = false) String language) {
+        if (language == null) {
+            return poemService.getAllPoems();
+        }
+
+        return poemService.getPoemByLanguage(language);
     }
 
 
