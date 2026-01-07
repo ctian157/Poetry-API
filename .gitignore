@@ -35,5 +35,6 @@ build/
 # Old DAO file I want to keep local but not track
 **/DataAccessServiceOld.java
 
-# Local Spring Boot config
-application-local.yml
+# macOS
+.DS_Store
+**/.DS_Store
