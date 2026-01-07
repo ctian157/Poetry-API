@@ -47,7 +47,7 @@ public class PoemController {
     }
 
 
-    //Will get all poems unless otherwise specified
+    //Will get all poems unless otherwise specified (ie by lang)
     @GetMapping
     public List<Poem> getPoems (@RequestParam(required = false) String language) {
         if (language == null) {
