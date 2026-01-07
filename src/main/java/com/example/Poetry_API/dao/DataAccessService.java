@@ -19,19 +19,19 @@ public class DataAccessService {
 
 
     //methods
-    public Poem insertPoem (String title, String poet, String poet_en, String dynasty, String content) {
+    public Poem insertPoem (Poem poem) {
 
         //if any mandatory fields are empty, Spring @NotBlank already checks from the start, so
         //that validation is not necessary here
 
         // Reject duplicates
-        if (poemRepository.existsByTitleAndContent(title, content)) {
+        if (poemRepository.existsByTitleAndContent(poem.getTitle(), poem.getContent())) {
             System.out.println("Poem already exists!");
             return null;
         }
 
-        Poem newPoem = new Poem(title, poet, poet_en, dynasty, content);
-        Poem savedPoem = poemRepository.save(newPoem);
+        //Save the poem
+        Poem savedPoem = poemRepository.save(poem);
         return savedPoem; // return newly added poem
     }
 
@@ -40,6 +40,10 @@ public class DataAccessService {
         return poemRepository.findAll();
     }
 
+
+    public List<Poem> getPoemByLanguage(String language) {
+        return poemRepository.findByLanguage(language);
+    }
 
     public Optional<Poem> selectPoemById (int id) {
         return poemRepository.findById(id);

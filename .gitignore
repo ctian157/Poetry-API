@@ -34,3 +34,6 @@ build/
 
 # Old DAO file I want to keep local but not track
 **/DataAccessServiceOld.java
+
+#For local prod
+**/application-local.yml

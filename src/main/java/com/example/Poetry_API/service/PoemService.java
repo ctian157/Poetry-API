@@ -29,18 +29,21 @@ public class PoemService {
     //method
     public Poem addPoem (Poem poem) {
 
+        //if for some reason URL does not pass in a language, set default
+        if (poem.getLanguage() == null || poem.getLanguage().isBlank()) {
+            poem.setLanguage("en");
+        }
+
         //insertPoem already returns an int
-        return dataAccessService.insertPoem(
-                poem.getTitle(),
-                poem.getPoet(),
-                poem.getPoetEn(),
-                poem.getDynasty(),
-                poem.getContent()
-        );
+        return dataAccessService.insertPoem(poem);
     }
 
     public List<Poem> getAllPoems (){
         return dataAccessService.selectAllPoems();
+    }
+
+    public List<Poem> getPoemByLanguage(String language) {
+        return dataAccessService.getPoemByLanguage(language);
     }
 
     public Optional<Poem> getPoemById(int id) {
@@ -70,7 +73,9 @@ public class PoemService {
         //immutable map
         Map<String, Object> prompt = Map.of(
            "contents", List.of(
-                   Map.of("parts", List.of(
+                   Map.of(
+                           "role", "user",
+                           "parts", List.of(
                            Map.of("text", "Translate the following Chinese poem into English." +
                                    "Do not translate word for word. Instead, preserve the poetic rhythm, imagery, and emotional nuances." +
                                    "The translation should read like an English poem, keeping its lyrical quality and flow." +
