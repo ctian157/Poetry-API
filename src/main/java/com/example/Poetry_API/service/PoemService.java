@@ -68,7 +68,7 @@ public class PoemService {
 
     private String callTranslationAPI(String content){
         //Calling Gemini API here
-        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + apiKey;
+        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
         //immutable map
         Map<String, Object> prompt = Map.of(
@@ -90,6 +90,7 @@ public class PoemService {
         HttpHeaders headers = new HttpHeaders();
         //turn Java Map into JSON
         headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-goog-api-key", apiKey);
         //package prompt and headers to send to API
         //note we don't need to specify type for headers because HttpHeaders is a concrete class but prompt is not
         HttpEntity<Map<String, Object>> entity = new HttpEntity<Map<String, Object>>(prompt, headers);
